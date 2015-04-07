@@ -37,7 +37,7 @@ MASTERS=`cat masters`
 NUM_MASTERS=`cat masters | wc -l`
 OTHER_MASTERS=`cat masters | sed '1d'`
 SLAVES=`cat slaves`
-SSH_OPTS="-o StrictHostKeyChecking=no -o ConnectTimeout=5"
+SSH_OPTS="-o StrictHostKeyChecking=no -o ConnectTimeout=60"
 
 if [[ "x$JAVA_HOME" == "x" ]] ; then
     echo "Expected JAVA_HOME to be set in .bash_profile!"
@@ -58,7 +58,7 @@ for node in $SLAVES $OTHER_MASTERS; do
   echo $node
   rsync -e "ssh $SSH_OPTS" -az /root/spark-ec2 $node:/root &
   scp $SSH_OPTS ~/.ssh/id_rsa $node:.ssh &
-  sleep 0.1
+  sleep 0.5
 done
 wait
 rsync_end_time="$(date +'%s')"
