@@ -39,7 +39,7 @@ DEST=`dirname "$DIR"`
 
 SLAVES=`cat /root/spark-ec2/slaves`
 
-SSH_OPTS="-o StrictHostKeyChecking=no -o ConnectTimeout=5"
+SSH_OPTS="-o StrictHostKeyChecking=no -o ConnectTimeout=60"
 
 echo "RSYNC'ing $DIR to slaves..."
 for slave in $SLAVES; do
